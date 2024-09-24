@@ -20,9 +20,6 @@ def analyze_code(file_path):
     print(f"Blank: {raw_metrics.blank}")
     print()
 
-    # Descriptive Comments
-    ##c_score = u.comments_score(raw_metrics.loc, raw_metrics.comments)
-
     # Cyclomatic Complexity
     cc_result = complexity.cc_visit(source_code)
     print("Cyclomatic Complexity Metrics:")
