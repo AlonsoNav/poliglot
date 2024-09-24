@@ -3,6 +3,7 @@ import radon.complexity as complexity
 import radon.metrics as metrics
 import sys
 import os
+import utils as u
 
 def analyze_code(file_path):
     with open(file_path, 'r') as file:
@@ -18,6 +19,9 @@ def analyze_code(file_path):
     print(f"Multi: {raw_metrics.multi}")
     print(f"Blank: {raw_metrics.blank}")
     print()
+
+    # Descriptive Comments
+    ##c_score = u.comments_score(raw_metrics.loc, raw_metrics.comments)
 
     # Cyclomatic Complexity
     cc_result = complexity.cc_visit(source_code)
