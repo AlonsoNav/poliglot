@@ -30,7 +30,7 @@ def get_quartile_data(grades):
 
 def get_statistics(grades):
     """
-    Returns the mean, median, mode, and standard deviation of the grades.
+    Returns the mean, median, mode, coefficient of deviation and standard deviation of the grades.
     """
     mean = np.mean(grades)
     median = np.median(grades)
@@ -40,10 +40,34 @@ def get_statistics(grades):
     values, counts = np.unique(grades, return_counts=True)
     mode_index = np.argmax(counts)
     mode = values[mode_index]
+
+    cv = (std_dev / mean) * 100 if mean != 0 else 0
     
     return {
         "mean": float(mean),
         "median": float(median),
         "mode": int(mode),
-        "std_dev": float(std_dev)
+        "std_dev": float(std_dev),
+        "cv": float(cv)
     }
+
+def get_outliers(grades):
+    """
+    Returns the list of outliers in the grades.
+    """
+    q1, q3 = np.percentile(grades, [25, 75])
+    iqr = q3 - q1
+    lower_bound = q1 - (1.5 * iqr)
+    upper_bound = q3 + (1.5 * iqr)
+
+    return [grade for grade in grades if grade < lower_bound or grade > upper_bound]
+
+def get_pass_fail_rate(grades, passing_grade=67.5):
+    """
+    Returns the pass and fail rates for the grades.
+    """
+    total = len(grades)
+    passed = sum(1 for grade in grades if grade >= passing_grade)
+    pass_rate = (passed / total) * 100 if total > 0 else 0
+    fail_rate = 100 - pass_rate
+    return {"pass_rate": pass_rate, "fail_rate": fail_rate}
