@@ -25,7 +25,29 @@ def execute_query_without_return(query, params):
         try:
             cursor.close() 
             conn.close()
-        except: pass
+        except: 
+            pass
+    
+
+def execute_query_with_return(query, params):
+    try:
+        conn = pyodbc.connect(conn_string)
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        results = cursor.fetchall()
+        return results
+    except pyodbc.Error as e:
+        print(f"Database error: {e}")
+        return None
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return None
+    finally:
+        try:
+            cursor.close()
+            conn.close()
+        except:
+            pass
 
 
 def set_groups(group):
@@ -41,6 +63,7 @@ def set_groups(group):
     )
     execute_query_without_return(query, params)
 
+
 def set_student(group):
     query = "CALL SP_Insert_Student(?, ?, ?, ?, ?)"
     params = (
@@ -51,3 +74,8 @@ def set_student(group):
         group['Correo electrónico']
     )
     execute_query_without_return(query, params)
+
+
+def get_grades():
+    query = "SELECT grade FROM StudentSolution"
+    return execute_query_with_return(query, ())

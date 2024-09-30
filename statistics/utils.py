@@ -1,9 +1,6 @@
 import numpy as np
 
 def get_quartile_data(grades):
-    """
-    Returns the min and max values for each quartile and the list of data in each quartile.
-    """
     # Sort the grades
     sorted_grades = sorted(grades)
     
@@ -20,10 +17,10 @@ def get_quartile_data(grades):
     
     # Prepare quartile data with min and max
     quartiles = [
-        {"min": min(quartile_1), "max": max(quartile_1), "data": quartile_1},
-        {"min": min(quartile_2), "max": max(quartile_2), "data": quartile_2},
-        {"min": min(quartile_3), "max": max(quartile_3), "data": quartile_3},
-        {"min": min(quartile_4), "max": max(quartile_4), "data": quartile_4}
+        {"min": min(quartile_1) if quartile_1 else None, "max": max(quartile_1) if quartile_1 else None},
+        {"min": min(quartile_2) if quartile_2 else None, "max": max(quartile_2) if quartile_2 else None},
+        {"min": min(quartile_3) if quartile_3 else None, "max": max(quartile_3) if quartile_3 else None},
+        {"min": min(quartile_4) if quartile_4 else None, "max": max(quartile_4) if quartile_4 else None},
     ]
     
     return quartiles

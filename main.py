@@ -2,6 +2,7 @@ import argparse
 import random 
 from upload.drive import get_groups, get_exercises
 from statistics.utils import get_statistics, get_quartile_data
+from db import get_grades
 
 def drive_group(path):
     get_groups(path + "grupos.xlsx") # Assume the standarized file name
@@ -19,9 +20,7 @@ def main():
                         help='Download groups from drive path and upload them to DB.\nThe path must be \"DATOS/year-semester/\".')
     parser.add_argument('-de', '--drive_exercises', type=str, 
                         help='Download exercises from drive path and upload them to DB.\nThe path must be \"DATOS/year-semester/professor full name\".')
-    
-    # Create an option to get statistics of the exercises
-    parser.add_argument('-s', '--statistics', type=str,
+    parser.add_argument('-s', '--statistics', action='store_true',
                         help='Get statistics of the exercises. The path must be \"DATOS/year-semester/professor full name\".')
 
     args = parser.parse_args()
@@ -32,13 +31,12 @@ def main():
     if args.drive_exercises:
         drive_exercises(args.drive_exercises)
     if args.statistics:
-        # Random list of 30 grades
-        grades = [random.randint(0, 100) for _ in range(30)]
-        print("Grades:", grades)
+        grades = get_grades()
+        converted_grades = [int(grade[0]) for grade in grades]
         print("\nStatistics of the exercises")
-        print(get_statistics(grades))
+        print(get_statistics(converted_grades))
         print("Quartile data")
-        print(get_quartile_data(grades))
+        print(get_quartile_data(converted_grades))
 
 if __name__ == '__main__':
     main()
