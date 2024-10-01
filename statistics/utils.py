@@ -1,5 +1,8 @@
 import numpy as np
-import json
+import plotly.graph_objects as go
+import plotly.io as pio
+from collections import Counter
+# import json
 from collections import defaultdict
 from datetime import datetime
 
@@ -72,12 +75,55 @@ def get_pass_fail_rate(grades, passing_grade=67.5):
     fail_rate = 100 - pass_rate
     return {"pass_rate": pass_rate, "fail_rate": fail_rate}
 
+# Functions related to generating the report
+def generate_histogram(grades, max_grade=100):
+    # print("Length:", len(grades))
+    # Count the frequency of each grade
+    grade_counts = Counter(grades)
+
+    # Styles
+    background_color = 'rgba(243,246,244, 1)'
+    bar_color = 'rgba(1,31,75, 1)'
+    
+    # Sort the grades and get their frequencies
+    sorted_grades = sorted(grade_counts.keys())
+    frequencies = [grade_counts[grade] for grade in sorted_grades]
+    
+    # Create the histogram
+    fig = go.Figure(data=[go.Bar(x=sorted_grades, y=frequencies, marker_color=bar_color)])
+    
+    # Update the layout
+    fig.update_layout(
+        title={
+            'text': f"Grade Distribution - {len(grades)} Grades",
+            'x': 0.5,
+            'xanchor': 'center'
+        },
+        xaxis_title="Grades",
+        yaxis_title="Frequency",
+        xaxis=dict(range=[0, max_grade], tickmode='linear', tick0=0, dtick=10),
+        bargap=0.1,
+        plot_bgcolor=background_color,
+        paper_bgcolor=background_color
+    )
+    
+    # Generate the HTML string for the pl   ot
+    html_code = pio.to_html(fig, full_html=False)
+
+    html_code = f"""
+    <div class="graph-container">
+        {html_code}
+    </div>
+    """
+    return html_code
+
 
 def generate_report(group_data, exercise_details, exercise_aspects, exercise_grades):
     """
     Generates a report with statistics, quartile data, outliers and pass/fail rates.
     Receives a json type string.
     """
+
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # Start the HTML content
@@ -110,6 +156,8 @@ def generate_report(group_data, exercise_details, exercise_aspects, exercise_gra
             outliers = get_outliers(grades_list)
             # Get pass/fail rate
             pass_fail_rate = get_pass_fail_rate(grades_list)
+            # Generate histogram
+            graph = generate_histogram(grades_list)
         else:
             # Handle the case where grades_list is empty
             stats = None
@@ -197,6 +245,7 @@ def generate_report(group_data, exercise_details, exercise_aspects, exercise_gra
             """
         else:
             html_content += "<p>No data available</p>"
+        html_content += graph
         html_content += "</div>"
 
         
@@ -230,6 +279,8 @@ def generate_report(group_data, exercise_details, exercise_aspects, exercise_gra
             outliers = get_outliers(grades_list)
             # Get pass/fail rate
             pass_fail_rate = get_pass_fail_rate(grades_list)
+
+            graph = generate_histogram(grades_list)
         else:
             # Handle the case where grades_list is empty
             stats = None
@@ -330,6 +381,7 @@ def generate_report(group_data, exercise_details, exercise_aspects, exercise_gra
             """
         else:
             html_content += "<p>No data available</p>"
+        html_content += graph
         html_content += "</div>"
     # End the HTML content
     html_content += """
