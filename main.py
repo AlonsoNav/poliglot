@@ -1,8 +1,8 @@
 import argparse
 import random 
 from upload.drive import get_groups, get_exercises
-from statistics.utils import get_statistics, get_quartile_data
-from db import get_grades
+from statistics.utils import get_statistics, get_quartile_data, generate_report
+from db import get_grades, get_exercise_details, get_group_details, get_exercise_grades, get_exercise_aspects
 
 def drive_group(path):
     get_groups(path + "grupos.xlsx") # Assume the standarized file name
@@ -31,12 +31,21 @@ def main():
     if args.drive_exercises:
         drive_exercises(args.drive_exercises)
     if args.statistics:
-        grades = get_grades()
-        converted_grades = [int(grade[0]) for grade in grades]
-        print("\nStatistics of the exercises")
-        print(get_statistics(converted_grades))
-        print("Quartile data")
-        print(get_quartile_data(converted_grades))
+        # grades = get_grades()
+        # converted_grades = [int(grade[0]) for grade in grades]
+        # print("\nStatistics of the exercises")
+        # print(get_statistics(converted_grades))
+        # print("Quartile data")
+        # print(get_quartile_data(converted_grades))
+
+        exercise_details = get_exercise_details()
+        exercise_grades = get_exercise_grades()
+        exercise_aspects = get_exercise_aspects()
+        grades_groups = get_group_details()
+        # print(grades_groups)
+        # print(data)
+        generate_report(grades_groups, exercise_details, exercise_aspects, exercise_grades)
+
 
 if __name__ == '__main__':
     main()
