@@ -1,3 +1,17 @@
+/* Variables */
+:root{
+    --primary: rgba(1,31,75, 1);
+    --secondary: rgba(3,57,108, 1);
+    --tertiary: rgba(0,91,150, 1);
+    --accent: rgba(100,151,177, 1);
+    --light: rgba(243,246,244, 1);
+}
+
+/* Styles */
+body{
+    background-color: var(--light);
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
@@ -11,21 +25,39 @@ p{
     font-weight: 300;
     margin: 0;
     text-align: center;
+    color: var(--primary);
 }
 
 .date-info{
-    color: #666;
+    color: var(--accent);
     font-style: italic;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .title{
     font-size: 2.5em;
     font-weight: bold;
+    color: var(--primary);
+}
+
+.main-title{
+    font-size: 3em;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+h3 {
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+h4{
+    color: var(--tertiary);
 }
 
 .info-frame{
-    border: 1px solid #ccc;
+    border: 1px solid var(--accent);
     padding: 20px;
     margin: 10px 0;
     flex-grow: 1;
@@ -60,12 +92,26 @@ p{
     li{
         list-style: none;
         margin: 0 5px;
-        border: 1px solid #333;
+        border: 1px solid var(--primary);
         border-radius: 5px;
         padding: 10px;
-        background-color: #c2c1c1;
+        background-color: var(--secondary);
+        color: var(--light);
         font-weight: bold;
         text-transform: uppercase;
         font-size: 0.7em;
+    }
+}
+
+table{
+    /* change border color */
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0;
+    border-color: var(--primary);
+    th{
+        text-align: center;
+        background-color: var(--accent);
+        color: var(--primary);
     }
 }

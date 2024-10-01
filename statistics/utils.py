@@ -91,7 +91,7 @@ def generate_report(group_data, exercise_details, exercise_aspects, exercise_gra
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <h1>Poliglot Statistics Report</h1>
+        <h1 class="main-title">Poliglot Statistics Report</h1>
         <p class="date-info">This page was generated using Python on {current_time}.</p>
         <h2 class="title">Statistics Per Group</h2>
         <div class="container">
