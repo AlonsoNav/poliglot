@@ -209,18 +209,18 @@ def generate_report(group_data, exercise_details, exercise_aspects, exercise_gra
                         </tr>
                         <tr>
                             <td>Q1</td>
-                            <td>{quartiles[0]['min'] if quartiles is not None else 'N/A'}</td>
-                            <td>{quartiles[0]['max'] if quartiles is not None else 'N/A'}</td>
+                            <td>{quartiles[0]['min'] if quartiles is not None and quartiles[0]['min'] is not None else 'N/A'}</td>
+                            <td>{quartiles[0]['max'] if quartiles is not None and quartiles[0]['max'] is not None else 'N/A'}</td>
                         </tr>
                         <tr>
                             <td>Q2</td>
-                            <td>{quartiles[1]['min'] if quartiles is not None else 'N/A'}</td>
-                            <td>{quartiles[1]['max'] if quartiles is not None else 'N/A'}</td>
+                            <td>{quartiles[1]['min'] if quartiles is not None and quartiles[1]['min'] is not None else'N/A'}</td>
+                            <td>{quartiles[1]['max'] if quartiles is not None and quartiles[1]['max'] is not None else 'N/A'}</td>
                         </tr>
                         <tr>
                             <td>Q3</td>
-                            <td>{quartiles[2]['min'] if quartiles is not None else 'N/A'}</td>
-                            <td>{quartiles[2]['max'] if quartiles is not None else 'N/A'}</td>
+                            <td>{quartiles[2]['min'] if quartiles is not None and quartiles[2]['min'] is not None else 'N/A'}</td>
+                            <td>{quartiles[2]['max'] if quartiles is not None and quartiles[2]['max'] is not None else 'N/A'}</td>
                         </tr>
                         <tr>
                             <td>Q4</td>
@@ -345,18 +345,18 @@ def generate_report(group_data, exercise_details, exercise_aspects, exercise_gra
                     </tr>
                     <tr>
                         <td>Q1</td>
-                        <td>{quartiles[0]['min'] if quartiles is not None else 'N/A'}</td>
-                        <td>{quartiles[0]['max'] if quartiles is not None else 'N/A'}</td>
+                        <td>{quartiles[0]['min'] if quartiles is not None and quartiles[0]['min'] is not None else 'N/A'}</td>
+                        <td>{quartiles[0]['max'] if quartiles is not None and quartiles[0]['max'] is not None else 'N/A'}</td>
                     </tr>
                     <tr>
                         <td>Q2</td>
-                        <td>{quartiles[1]['min'] if quartiles is not None else 'N/A'}</td>
-                        <td>{quartiles[1]['max'] if quartiles is not None else 'N/A'}</td>
+                        <td>{quartiles[1]['min'] if quartiles is not None and quartiles[1]['min'] is not None else'N/A'}</td>
+                        <td>{quartiles[1]['max'] if quartiles is not None and quartiles[1]['max'] is not None else 'N/A'}</td>
                     </tr>
                     <tr>
                         <td>Q3</td>
-                        <td>{quartiles[2]['min'] if quartiles is not None else 'N/A'}</td>
-                        <td>{quartiles[2]['max'] if quartiles is not None else 'N/A'}</td>
+                        <td>{quartiles[2]['min'] if quartiles is not None and quartiles[2]['min'] is not None else 'N/A'}</td>
+                        <td>{quartiles[2]['max'] if quartiles is not None and quartiles[2]['max'] is not None else 'N/A'}</td>
                     </tr>
                     <tr>
                         <td>Q4</td>
