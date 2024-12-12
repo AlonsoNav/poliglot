@@ -1,5 +1,6 @@
 import pandas as pd
-from db import set_groups, set_student
+import json
+from db import set_groups, set_student, set_aspects
 from genderize import predict_gender
 
 def analyze_group(file):
@@ -25,3 +26,23 @@ def analyze_student(file):
         set_student(row)
     
     print("Student inserted successfully.")
+
+
+def analyze_aspects(file, exercise):
+    df = pd.read_csv(file)
+    df.columns = df.columns.str.strip()
+    keywords = df['keywords'].dropna().tolist()
+    set_aspects(int(exercise), json.dumps(keywords))
+
+
+def analyze_grade(file, case):
+    df = pd.read_excel(file)
+    df.columns = df.columns.str.strip()
+    if case == 1:
+        grade_date = df[['ejercicio', 'nota']]
+        grade_date.set_index('ejercicio', inplace=True)
+    else:
+        grade_date = df[['id', 'nota']]
+        grade_date.set_index('id', inplace=True)
+    grade_date = grade_date.dropna() # Remove empty rows
+    return grade_date['nota'].to_dict()
